@@ -11,6 +11,6 @@ const router = Router();
 
 router.route('/').get(getJobs).post(createJob);
 // /:id(\\d+)
-router.route('/:id').get(getJobById).put(updateJob).delete(deleteJob);
+router.route('/:id').get(getJobById).patch(updateJob).delete(deleteJob);
 
 export default router;
