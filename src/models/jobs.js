@@ -20,14 +20,21 @@ const jobSchema = new Schema(
     level: {
       type: String,
       required: true,
-      enum: {
-        values: ['Junior', 'Midweight', 'Senior'],
-        message: 'Level can only include Junior, Midweight, Senior',
-      },
     },
     contract: {
       type: String,
       required: true,
+      enum: {
+        values: [
+          'Full time',
+          'Part time',
+          'Contract',
+          'Freelance',
+          'Internship',
+        ],
+        message:
+          'Contract can only include Full time, Part time, Contract, Freelance,Internship',
+      },
     },
     location: {
       type: String,
@@ -57,7 +64,6 @@ const jobSchema = new Schema(
       type: String,
       required: true,
     },
-    // postedAt?
   },
   {
     timestamps: true,
