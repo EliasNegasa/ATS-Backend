@@ -33,7 +33,7 @@ const jobSchema = new Schema(
           'Internship',
         ],
         message:
-          'Contract can only include Full time, Part time, Contract, Freelance,Internship',
+          'Contract can only include Full time, Part time, Contract, Freelance, Internship',
       },
     },
     location: {

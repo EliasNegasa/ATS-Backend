@@ -25,6 +25,7 @@ const getJobs = asyncHandler(async (req, res) => {
   }
 
   const jobs = await Job.find(filterQueries)
+    .collation({ locale: 'en', strength: 2 })
     .sort(sort || '-createdAt')
     .skip((page - 1) * limit)
     .limit(+limit);
