@@ -18,7 +18,7 @@ const getJobById = asyncHandler(async (req, res) => {
 const getJobs = asyncHandler(async (req, res) => {
   const { page = 1, limit = 10, sort, ...filterQueries } = req.query;
 
-  const total = await Job.countDocuments();
+  const total = await Job.countDocuments(filterQueries);
 
   if (page > Math.ceil(total / limit) && total > 0) {
     throw new Error('Page not Found');
