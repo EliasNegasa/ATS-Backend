@@ -5,7 +5,7 @@ import {
   getJobById,
   getJobs,
   updateJob,
-} from '../controllers/jobs';
+} from '../controllers/job';
 
 const router = Router();
 

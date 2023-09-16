@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import Job from '../models/jobs';
+import Job from '../models/job';
 import generateUrl from '../utils/generate-url';
 
 const getJobById = asyncHandler(async (req, res) => {
@@ -79,7 +79,7 @@ const deleteJob = asyncHandler(async (req, res) => {
     throw new Error('Job not Found');
   }
 
-  res.status(204).json({ id });
+  res.status(204).json({ message: 'Job Deleted' });
 });
 
 export { getJobById, getJobs, createJob, updateJob, deleteJob };
