@@ -40,7 +40,7 @@ const signIn = asyncHandler(async (req, res) => {
 });
 
 const profile = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: req.user });
+  res.status(200).json(req.user);
 });
 
 const signOut = asyncHandler(async (req, res) => {
