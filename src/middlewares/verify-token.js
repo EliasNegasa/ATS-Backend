@@ -1,22 +1,22 @@
 import asyncHandler from 'express-async-handler';
-import jwt from 'jsonwebtoken';
 import User from '../models/user';
+import { decodeToken } from '../utils/decode-token';
 
 const verifyToken = asyncHandler(async (req, res, next) => {
   const { token } = req.cookies;
 
   if (!token) {
     res.status(403);
-    throw new Error('Not Authenticated, no token!');
+    throw new Error('Not Authenticated: no token provided!');
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const { id } = decodeToken(token);
 
-    req.user = await User.findById(decoded.id).select('-password');
+    req.user = await User.findById(id).select('-password');
   } catch (error) {
     res.status(403);
-    throw new Error('Not Authenticated, invalid token!');
+    throw new Error('Not Authenticated: invalid token!');
   }
 
   next();
