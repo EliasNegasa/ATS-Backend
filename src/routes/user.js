@@ -7,14 +7,19 @@ import {
   updateUser,
 } from '../controllers/user';
 import { isSuperAdmin } from '../middlewares/authorize';
+import { verifyToken } from '../middlewares/verify-token';
 
 const router = Router();
 
-router.route('/').all(isSuperAdmin).get(getUsers).post(createUser);
+router
+  .route('/')
+  .all([verifyToken, isSuperAdmin])
+  .get(getUsers)
+  .post(createUser);
 
 router
   .route('/:id')
-  .all(isSuperAdmin)
+  .all(verifyToken, isSuperAdmin)
   .get(getUserById)
   .patch(updateUser)
   .delete(deleteUser);
