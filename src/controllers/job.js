@@ -37,9 +37,12 @@ const getJobs = asyncHandler(async (req, res) => {
       limit: +limit,
     },
     links: {
-      prev: page > 1 ? generateUrl(page - 1, limit, sort) : null,
+      prev: page > 1 ? generateUrl(page - 1, limit, sort, 'jobs') : null,
       self: req.originalUrl,
-      next: page * limit < total ? generateUrl(+page + 1, limit, sort) : null,
+      next:
+        page * limit < total
+          ? generateUrl(+page + 1, limit, sort, 'jobs')
+          : null,
     },
     data: jobs,
   });

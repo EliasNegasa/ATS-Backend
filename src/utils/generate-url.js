@@ -1,5 +1,7 @@
-const generateUrl = (page, limit, sort = '') => {
-  return `/api/jobs?page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}`;
+const generateUrl = (page, limit, sort = '', resource) => {
+  return `/api/${resource}?page=${page}&limit=${limit}${
+    sort ? `&sort=${sort}` : ''
+  }`;
 };
 
 export default generateUrl;
