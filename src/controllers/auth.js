@@ -3,6 +3,8 @@ import User from '../models/user';
 import generateToken from '../utils/generate-token.js';
 
 const signUp = asyncHandler(async (req, res) => {
+  req.body.role = 'Candidate';
+
   const user = await User.create(req.body);
 
   generateToken(res, user._id);
@@ -38,15 +40,7 @@ const signIn = asyncHandler(async (req, res) => {
 });
 
 const profile = asyncHandler(async (req, res) => {
-  const user = {
-    // _id: user._id,
-    // firstName: user.firstName,
-    // lastName: user.lastName,
-    // email: user.email,
-    // role: user.role,
-  };
-
-  res.status(200).json({ message: 'User Profile' });
+  res.status(200).json({ message: req.user });
 });
 
 const signOut = asyncHandler(async (req, res) => {
