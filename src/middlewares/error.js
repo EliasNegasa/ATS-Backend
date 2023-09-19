@@ -15,6 +15,9 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === 'ValidationError') {
     statusCode = 400;
     message;
+  } else if (err.code === 11000) {
+    statusCode = 400;
+    message = 'User already exist with this email.';
   }
 
   res.status(statusCode).json({
