@@ -29,3 +29,12 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log('Running on', PORT);
 });
+
+
+// user createdBy and updatedBy
+
+// soft delete User
+
+// self delete?
+
+//super admin protection

@@ -18,6 +18,7 @@ const userSchema = new Schema(
       required: true,
       unique: true,
       lowercase: true,
+      immutable: [true, 'Email cannot be changed'],
       validate: [validator.isEmail, 'Please enter a valid email'],
     },
     password: {
