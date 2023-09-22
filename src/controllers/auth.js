@@ -7,14 +7,14 @@ const signUp = asyncHandler(async (req, res) => {
 
   const user = await User.create(req.body);
 
-  generateToken(res, user._id);
-
   res.status(201).json({
     _id: user._id,
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
     role: user.role,
+    isActive: user.isActive,
+    token: generateToken(user._id),
   });
 });
 
@@ -23,15 +23,14 @@ const signIn = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  if (user && (await user.matchPassword(password))) {
-    generateToken(res, user._id);
-
+  if (user && user.isActive && (await user.matchPassword(password))) {
     res.status(201).json({
       _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       role: user.role,
+      token: generateToken(user._id),
     });
   } else {
     res.status(404);
@@ -44,11 +43,6 @@ const profile = asyncHandler(async (req, res) => {
 });
 
 const signOut = asyncHandler(async (req, res) => {
-  res.cookie('token', '', {
-    httpOnly: true,
-    expires: new Date(0),
-  });
-
   res.status(200).json({ message: 'User logged out' });
 });
 

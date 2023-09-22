@@ -3,7 +3,7 @@ import User from '../models/user';
 import { decodeToken } from '../utils/decode-token';
 
 const isSuperAdmin = asyncHandler(async (req, res, next) => {
-  const { token } = req.cookies;
+  const token = req.headers.authorization?.split(' ')[1];
 
   const { id } = decodeToken(token);
 
@@ -19,13 +19,16 @@ const isSuperAdmin = asyncHandler(async (req, res, next) => {
 });
 
 const isAdmin = asyncHandler(async (req, res, next) => {
-  const { token } = req.cookies;
+  const token = req.headers.authorization?.split(' ')[1];
 
   const { id } = decodeToken(token);
 
   const user = await User.findById(id);
 
-  if (user.role.toUpperCase() === 'ADMIN') {
+  if (
+    user.role.toUpperCase() === 'ADMIN' ||
+    user.role.toUpperCase() === 'SUPER ADMIN'
+  ) {
     next();
     return;
   } else {
@@ -35,7 +38,7 @@ const isAdmin = asyncHandler(async (req, res, next) => {
 });
 
 const isCandidate = asyncHandler(async (req, res, next) => {
-  const { token } = req.cookies;
+  const token = req.headers.authorization?.split(' ')[1];
 
   const { id } = decodeToken(token);
 

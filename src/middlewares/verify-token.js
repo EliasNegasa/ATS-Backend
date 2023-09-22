@@ -3,7 +3,7 @@ import User from '../models/user';
 import { decodeToken } from '../utils/decode-token';
 
 const verifyToken = asyncHandler(async (req, res, next) => {
-  const { token } = req.cookies;
+  const token = req.headers.authorization?.split(' ')[1];
 
   if (!token) {
     res.status(403);
