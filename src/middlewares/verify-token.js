@@ -6,7 +6,7 @@ const verifyToken = asyncHandler(async (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
 
   if (!token) {
-    res.status(403);
+    res.status(401);
     throw new Error('Not Authenticated: no token provided!');
   }
 
