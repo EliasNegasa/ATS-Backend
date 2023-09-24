@@ -11,7 +11,7 @@ const jobSchema = new Schema(
     company: {
       type: String,
       required: [true, 'Company is a required field'],
-      maxLength: [30, 'Position must not have more than 50 Characters'],
+      maxLength: [30, 'Company must not have more than 50 Characters'],
     },
     role: {
       type: String,
@@ -24,17 +24,6 @@ const jobSchema = new Schema(
     contract: {
       type: String,
       required: true,
-      enum: {
-        values: [
-          'Full time',
-          'Part time',
-          'Contract',
-          'Freelance',
-          'Internship',
-        ],
-        message:
-          'Contract can only include Full time, Part time, Contract, Freelance, Internship',
-      },
     },
     location: {
       type: String,
@@ -50,7 +39,7 @@ const jobSchema = new Schema(
     postedDate: {
       type: Date,
       required: true,
-      max: [Date.now(), 'Posted Date must not exceed current date'],
+      max: [() => Date.now(), 'Posted Date must not exceed current date'],
     },
     isNew: {
       type: Boolean,
@@ -63,6 +52,15 @@ const jobSchema = new Schema(
     logo: {
       type: String,
       required: true,
+    },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      immutable: true,
+    },
+    updatedBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
     },
   },
   {
