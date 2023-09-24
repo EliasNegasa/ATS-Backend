@@ -1,5 +1,6 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import helmet from 'helmet';
+import dotenv from 'dotenv/config';
 import connectDB from './config/db';
 import router from './src/routes';
 import authRouter from './src/routes/auth';
@@ -7,11 +8,11 @@ import { errorHandler, notFound } from './src/middlewares/error';
 
 const PORT = process.env.PORT || 3000;
 
-dotenv.config();
-
 connectDB();
 
 const app = express();
+
+app.use(helmet());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,12 +27,3 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log('Running on', PORT);
 });
-
-
-// user createdBy and updatedBy
-
-// soft delete User
-
-// self delete?
-
-//super admin protection
