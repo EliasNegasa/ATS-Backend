@@ -18,6 +18,16 @@ const getJobById = asyncHandler(async (req, res) => {
 const getJobs = asyncHandler(async (req, res) => {
   const { page = 1, limit = 10, sort, ...filterQueries } = req.query;
 
+  if (req.query.languages) {
+    const languagesArray = req.query.languages.split(',');
+    filterQueries.languages = { $all: languagesArray };
+  }
+  
+  if (req.query.tools) {
+    const toolsArray = req.query.tools.split(',');
+    filterQueries.tools = { $all: toolsArray };
+  }
+
   const total = await Job.countDocuments(filterQueries);
 
   if (page > Math.ceil(total / limit) && total > 0) {
